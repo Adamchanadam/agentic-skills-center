@@ -116,6 +116,8 @@ Agent Execution Retrospective
 
 Skill 清單中的每個 skill 介紹以 2 至 3 句為準。若三句仍說不清，先修 skill 的定位，不用長文補救。
 
+README 的 skill 標題可用一個穩定 emoji 協助辨識。emoji 只作標記，不可代替 skill 名稱、用途或邊界。
+
 安裝說明只列已核實平台。每個平台只保留一個最簡單方法，不放備用命令補位。沒有驗證過的位置、工具或相容方式，不得用 `Other tools`、`一般工具`、`其他平台` 之類泛稱補位。
 
 ## 每個 skill 的最低標準

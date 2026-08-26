@@ -11,6 +11,8 @@ Version: v0.2.1
 
 Provide a portable, cross-project retrospective for an AI agent's own execution after a bounded task has completed, paused, or failed.
 
+Support agent self-improvement by turning current-run evidence into adoption-ready execution recommendations. This Skill does not learn persistently or change rules by itself; improvements take effect only when the user adopts them into the correct owner.
+
 This Skill is not a task executor, debugging workflow, audit workflow, project planning workflow, incident postmortem, or team retrospective. Its purpose is to identify up to two evidence-backed improvements to how the agent executed the current task.
 
 ## Activation
