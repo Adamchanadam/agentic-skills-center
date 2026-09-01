@@ -1,22 +1,16 @@
 # Agentic Skills Center
 
-這個 repo 用來發布可安裝的 agent skills。
-
-目前只有一個 skill：Agent Execution Retrospective。之後新增的 skill 會放在同一份清單。
+這裡放可安裝的 agent skills。每個 skill 處理一種工作方式，並寫清楚何時應用、何時停手。
 
 ## Skill 清單
 
 ### 🔁 Agent Execution Retrospective
 
-路徑：`skills/agent-execution-retrospective/`
+把一次 AI 執行留下的證據，轉成下一次可採用的改進建議；任務成功、暫停或失敗後都可以用，但它不是自動學習系統，採納與否由使用者決定。
 
-核心價值：把一次 AI 執行留下的證據，轉成下一次可採用的改進建議；任務成功、暫停或失敗後都可以用，但它不是自動學習系統，採納與否由使用者決定。
+當你明確要求檢討本次 AI 執行、找出做錯或下次可改善的地方時使用；目前進度、方案比較、重做或續行判斷、工具行為診斷不適用。
 
-何時用：當你明確要求檢討本次 AI 執行、找出做錯或下次可改善的地方時使用；目前進度、方案比較、重做或續行判斷、工具行為診斷不適用；若你明確要求 agent 執行根因、根修或重犯原因，才進深度模式。
-
-輸出：一般模式最多兩項改善建議；深度根因模式不受兩項上限，但仍只處理本次執行證據，不會自動改檔、開任務或發布。
-
-目前版本：`v0.3.0`。已用 routing cases、dry-run 和一次代表性新對話驗過：要求檢查工具或流程是否重複輸出狀態時，應作普通診斷，不應變成 execution retrospective。
+一般模式最多兩項改善建議；若你明確要求 AI 執行的根因、根修或重犯原因，會進入較深檢查，但仍只處理本次執行證據，不會自動改檔、開任務或發布。
 
 ## 安裝
 
@@ -43,23 +37,6 @@
 ```
 
 然後開一個新對話。
-
-## 目錄
-
-```text
-CHANGELOG.md
-skills/
-  agent-execution-retrospective/
-    SKILL.md
-    agents/openai.yaml
-    references/deep-root-cause-mode.md
-    tests/routing-cases.md
-docs/
-  directory-spec.md
-  quality-gate.md
-```
-
-`SKILL.md` 是每個 skill 的行為真源。`tests/routing-cases.md` 記錄應啟動和不應啟動的例子，尤其是不應啟動的邊界。
 
 ## 回報問題
 
