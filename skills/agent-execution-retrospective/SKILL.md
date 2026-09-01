@@ -1,11 +1,11 @@
 ---
 name: agent-execution-retrospective
-description: Use only when the user explicitly asks to review the current agent's completed, paused, or failed execution to identify lessons or execution-method improvements. Do not activate for ordinary review, diagnostics, audits, progress checks, cross-context record reviews, tool or workflow behavior checks, option comparisons, next-step decisions, or redo-vs-continue decisions unless the user also explicitly asks for this task's execution retrospective.
+description: Use only when the user explicitly asks to review this agent's own completed, paused, or failed execution for execution-method improvements, lessons, or agent-execution root cause. Do not activate for ordinary review, diagnostics, audits, progress checks, cross-context record reviews, tool or workflow behavior checks, option comparisons, next-step decisions, redo-vs-continue decisions, or deliverable improvement unless the user clearly asks for a retrospective of this agent execution.
 ---
 
 # Agent Execution Retrospective
 
-Version: v0.2.1
+Version: v0.3.0
 
 ## Purpose
 
@@ -13,7 +13,7 @@ Provide a portable, cross-project retrospective for an AI agent's own execution 
 
 Support agent self-improvement by turning current-run evidence into adoption-ready execution recommendations. This Skill does not learn persistently or change rules by itself; improvements take effect only when the user adopts them into the correct owner.
 
-This Skill is not a task executor, debugging workflow, audit workflow, project planning workflow, incident postmortem, or team retrospective. Its purpose is to identify up to two evidence-backed improvements to how the agent executed the current task.
+This Skill is not a task executor, debugging workflow, audit workflow, project planning workflow, incident postmortem, or team retrospective. In general mode, it identifies up to two evidence-backed improvements to how the agent executed the current task. In deep root-cause mode, it traces the execution failure chain only when the user explicitly asks for agent-execution root cause, root fix, repeated-failure cause, or process failure chain.
 
 ## Activation
 
@@ -21,9 +21,9 @@ Activate only when all conditions are true:
 
 1. The target is the current agent execution in the current task or conversation.
 2. The execution is completed, paused, failed, or the user explicitly asks to review a bounded segment of the current execution.
-3. The user explicitly asks for an execution retrospective, AI self-reflection, lessons learned, a review of what the agent did wrong, or improvement to the agent's execution method.
+3. The user explicitly asks for an execution retrospective, AI self-reflection, lessons learned, a review of what the agent did wrong, improvement to the agent's execution method, or root cause of this agent execution.
 
-Do not activate from keywords alone. Words such as review, retrospective, reflect, check, inspect, audit, debug, error, failure, progress, status, improve, or fix are not sufficient unless they clearly target this current agent execution as a retrospective.
+Do not activate from keywords alone. Words such as review, retrospective, reflect, check, inspect, audit, debug, error, failure, progress, status, improve, root cause, root fix, or fix are not sufficient unless they clearly target this current agent execution as a retrospective.
 
 If this Skill is loaded but the request does not satisfy the activation conditions, ignore this Skill's retrospective workflow and answer the user's primary request normally. Do not force the retrospective output format onto a non-retrospective task.
 
@@ -33,6 +33,7 @@ Acceptable activation examples:
 - "Self-reflect on this task and extract lessons for the next run."
 - "檢討這次 AI 執行有甚麼做錯。"
 - "回顧本次 AI 執行，提出最多兩項可驗收改善。"
+- "找出這次 AI 執行重犯問題的根因，並提出可驗收根修。"
 
 ## Non-Goals
 
@@ -42,6 +43,7 @@ The following requests are not agent execution retrospectives unless they also i
 - Option comparison, next-step selection, or redo-vs-continue decisions.
 - Reading or comparing other conversations, task records, logs, transcripts, or external reports.
 - Diagnosing whether a tool, workflow, integration, system component, or generated output behaved correctly.
+- Root-cause analysis of a product, project, external system, tool behavior, data issue, or deliverable quality issue.
 - Fixing current output, improving a deliverable, or continuing unfinished work.
 - Team retrospectives, incident postmortems, governance reviews, or long-term process design.
 
@@ -70,7 +72,8 @@ Round 2 may only:
 
 - Identify counterexamples visible in the current task evidence that would overturn the provisional decision or result.
 - Point out unresolved execution root causes that the provisional decision still preserves.
-- Propose up to two execution improvements that do not replace the primary outcome.
+- Propose execution improvements that do not replace the primary outcome.
+- Use the two-improvement cap in General Retrospective Mode only. When the retrospective portion explicitly qualifies for Deep Root-Cause Mode, use that mode's recommendation count and stop conditions.
 
 Round 2 must not:
 
@@ -89,9 +92,24 @@ For mixed-intent answers, use this order:
 3. Option comparison, when relevant.
 4. Recommendation and stop conditions.
 5. Retrospective challenge result.
-6. Up to two execution improvements.
+6. Execution improvements: up to two in General Retrospective Mode, or the causally necessary recommendations in Deep Root-Cause Mode.
 
 Do not begin with the retrospective output and derive the primary decision from it.
+
+## Mode Routing
+
+Default to General Retrospective Mode.
+
+Use Deep Root-Cause Mode only when Activation is satisfied and the user explicitly asks for agent-execution root cause, root fix, repeated-failure cause, why the agent repeated a failure, or the execution/process failure chain.
+
+When Deep Root-Cause Mode applies, read [references/deep-root-cause-mode.md](references/deep-root-cause-mode.md) before analyzing. Its deeper evidence and causal method replaces the general two-improvement cap for that mode only.
+
+Do not use Deep Root-Cause Mode for:
+
+- Simple "what can improve next time" requests after a successful or ordinary run.
+- Root-cause analysis of the user's product, data, system, workflow, tool behavior, or deliverable unless the explicit target is this agent's execution method.
+- Progress review, ordinary audits, debugging, option comparison, planning, or redo-vs-continue decisions.
+- Attempts to use one local failure as automatic permission for broader reset, governance, publication, or external mutation.
 
 ## Evidence Boundary
 
@@ -113,7 +131,7 @@ Do not:
 
 If evidence is insufficient, say "insufficient evidence" and do not invent improvements.
 
-## Review Method
+## General Retrospective Method
 
 Review in this order:
 
@@ -137,7 +155,7 @@ If the gate fails, explain the evidence gap or blocker without listing recommend
 
 ## Output Contract
 
-For a pure retrospective, use this compact structure. Field names may be translated to match the conversation language, but the decision meaning must stay the same.
+For a pure General Retrospective Mode response, use this compact structure. Field names may be translated to match the conversation language, but the decision meaning must stay the same.
 
 ```markdown
 ## Agent Execution Retrospective
@@ -158,6 +176,8 @@ Evidence scope: actual current-task evidence used
 ```
 
 List a second recommendation only when one truly exists. Do not add filler recommendations.
+
+For Deep Root-Cause Mode, use the output structure in [references/deep-root-cause-mode.md](references/deep-root-cause-mode.md).
 
 For mixed-intent tasks, follow the order in Mixed-Intent Authority Boundary instead of starting with this template.
 
@@ -187,7 +207,7 @@ Stop without recommendations when:
 - The issue is only a style preference with no outcome or risk impact.
 - The recommendation would require evidence or permissions the user has not provided.
 - The recommendation would change the user's success conditions without their decision.
-- Two concrete recommendations already exist.
+- General Retrospective Mode already has two concrete recommendations.
 
 Do not claim that an improvement has worked, or that nothing regressed, without direct validation from a later run.
 
@@ -201,6 +221,7 @@ Use these archetypes to validate routing and authority:
 | "Should we redo or continue?" | Decision comparison; do not activate this Skill. |
 | "Check whether a workflow's observed behavior deviates from expectation and read the related records." | Diagnostics and record review; do not activate this Skill. |
 | "Review this AI execution and identify what went wrong." | Pure agent execution retrospective. |
+| "Find the root cause of this AI execution failure and why it repeated." | Deep root-cause mode; current execution evidence only. |
 | "First decide whether to redo or continue, then retrospectively challenge whether this AI execution repeats known issues." | Primary decision first, retrospective challenge second. |
 | "Based on one failure, delete or reset the project output." | Verify impact radius first; a lesson does not authorize deletion or reset. |
 

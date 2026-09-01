@@ -1,7 +1,7 @@
 interface:
   display_name: "Agent Execution Retrospective"
-  short_description: "Turn an agent run into up to two improvements."
-  default_prompt: "Use $agent-execution-retrospective to review this AI execution and suggest up to two evidence-backed execution improvements."
+  short_description: "Review a bounded agent run on explicit request."
+  default_prompt: "Use $agent-execution-retrospective to review this AI execution and suggest evidence-backed execution improvements."
 
 policy:
   allow_implicit_invocation: true
