@@ -1,0 +1,7 @@
+interface:
+  display_name: "AI Review Loop"
+  short_description: "先定標準、找盲點、修根因，再用同一批檢查重跑；只在指名時使用。"
+  default_prompt: "Use $ai-review-loop to review this deliverable: set the criteria first, find blind spots, fix root causes, then rerun the same checks."
+
+policy:
+  allow_implicit_invocation: false

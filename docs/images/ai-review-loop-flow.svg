@@ -139,8 +139,8 @@
   <!-- modules -->
   <rect x="40" y="656" width="880" height="216" rx="14" fill="#F7F9FC" stroke="#C5CFDB" stroke-width="1.2" stroke-dasharray="5 4"/>
   <use href="#i-search" x="58" y="670" width="22" height="22" stroke="#2F6FDE"/>
-  <text class="mt" x="88" y="687">按你的材料，自動加做這些檢查</text>
-  <text class="note" x="334" y="687">（用到才做）</text>
+  <text class="mt" x="88" y="687">按你的材料，加做這些檢查</text>
+  <text class="note" x="304" y="687">（有需要才做）</text>
 
   <rect x="56" y="704" width="276" height="74" rx="10" fill="#FFFFFF" stroke="#D9DEE5" stroke-width="1.2"/>
   <use href="#i-building" x="72" y="729" width="26" height="26" stroke="#2F6FDE"/>
