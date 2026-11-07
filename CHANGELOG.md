@@ -1,5 +1,16 @@
 # Changelog
 
+## 安裝實測 - 2026-11-07
+
+以「請把 <GitHub 上該 skill 資料夾的網址> 這個 skill 資料夾安裝到 <位置>。」一句交給 AI agent，在 Windows 11 實測（repo 版本 `ee57173`）：
+
+- AI Review Loop → Codex（codex-cli 0.163.0）`~/.agents/skills/`：Codex 用內置安裝程式並按句子指定位置安裝；7 個檔案與 repo 一致；新會話載入；以 `$ai-review-loop` 叫用，按第 0 步判斷並列出目的卡。
+- Agent Execution Retrospective → Claude Code（2.1.306）`~/.claude/skills/`：首次測試寫入被權限擋下（非互動模式，無人可按允許）；同句重跑時 AI 改用另一種寫入方法並完成。4 個檔案內容與 repo 一致；新會話載入；「檢討這次 AI 執行有甚麼做錯。」會啟動，「回顧目前進度。」不會啟動。
+- Content-Led Interactive Web → Claude Code `~/.claude/skills/`：12 個檔案與 repo 一致；新會話載入。第一次叫用未測。
+- Agent Execution Retrospective、Content-Led Interactive Web → Codex `~/.agents/skills/`：未實測（兩者已裝在本機 `~/.codex/skills/`，再裝會重複）。按機制推斷可用：上一項證實 Codex 會從 `~/.agents/skills/` 載入 skill。
+
+限制：Claude Code 安裝要寫入受保護位置，互動模式下會請求權限；只在 Windows 測試。
+
 ## AI Review Loop v1.7.1 - 2026-11-07
 
 - 與方法原文全文對齊後的補正：用戶已給齊設定或要求一次過完成時，列出模擬角色並註明可改，然後直接模擬，不再停下等確認（`persona.md` 與 SKILL.md 原本互相矛盾）。
