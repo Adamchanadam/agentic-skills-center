@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 990" width="960" height="990" role="img" aria-labelledby="t d">
+  <title id="t">AI Review Loop 怎樣運作</title>
+  <desc id="d">先判斷適不適用；開始前定好目的、力度及檢查角度；再按定基準、找盲點、修根因、同案重跑四步循環，未通過就再找再修。找盲點時按材料內容加用專項檢查：情景參考、模擬用戶、數字核算、財務估值、去 AI 腔、因果核對。必要檢查全部通過而且沒有新問題便交付；重查根因仍修不好便停下說明。</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7B8794"/>
+    </marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2F6FDE"/>
+    </marker>
+
+    <!-- icons: 24x24 line icons -->
+    <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M7.5 12.5l3 3 6-6.5"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 4v16M7 20h10M4 8h16M4 8l-2.5 6h5zM20 8l-2.5 6h5z"/><circle cx="12" cy="4" r="1.2"/></symbol>
+    <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l1.2-4.8L16 4.4l3.6 3.6L8.8 18.8zM13.6 6.8l3.6 3.6"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.3"/></symbol>
+    <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M3.5 17.5a8.5 8.5 0 0 1 17 0"/><path d="M12 17.5l4.5-5.5"/><path d="M6 17.5h.01M18 17.5h.01"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-clip" viewBox="0 0 24 24"><rect x="5" y="4.5" width="14" height="16.5" rx="2"/><path d="M9 3h6v3H9zM8.5 12l2.2 2.2 4.6-4.6M8.5 17.5h7"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.3 15.3L20.5 20.5"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 3.6a5 5 0 0 0-4.4 7L3.5 17.4l3.1 3.1 6.8-6.8a5 5 0 0 0 7-4.4l-3 1.4-3.2-3.2z"/></symbol>
+    <symbol id="i-repeat" viewBox="0 0 24 24"><path d="M4.5 11a7.5 7.5 0 0 1 13-4.6M19.5 13a7.5 7.5 0 0 1-13 4.6M17.8 2.8v3.8H14M6.2 21.2v-3.8H10"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24"><path d="M8.3 3h7.4L21 8.3v7.4L15.7 21H8.3L3 15.7V8.3z"/><path d="M12 7.5v5.5M12 16.4v.1"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><rect x="4" y="4" width="10" height="16"/><path d="M14 9h6v11M2 20h20M7 8h4M7 12h4M7 16h4"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></symbol>
+    <symbol id="i-calc" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8.5 6.5h7v3h-7zM9 13.5h.01M12 13.5h.01M15 13.5h.01M9 17h.01M12 17h.01M15 17h.01"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3.5 20.5h17M7 20.5v-6M12 20.5V9.5M17 20.5v-14"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 4.5h16v11.5H9.5L4 20.5z"/><path d="M8 8.8h8M8 12.2h5"/></symbol>
+    <symbol id="i-chain" viewBox="0 0 24 24"><circle cx="4.8" cy="12" r="2.6"/><circle cx="19.2" cy="12" r="2.6"/><path d="M7.6 12h8.6M13.4 9l3 3-3 3"/></symbol>
+
+    <style>
+      text { font-family: "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", "Noto Sans CJK TC", "Heiti TC", sans-serif; fill: #1F2933; }
+      use { fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+      .title { font-size: 28px; font-weight: 700; }
+      .h { font-size: 21px; font-weight: 700; }
+      .note { font-size: 16px; fill: #616E7C; }
+      .n { font-size: 16px; font-weight: 700; fill: #FFFFFF; }
+      .bt { font-size: 18px; font-weight: 700; }
+      .mt { font-size: 16.5px; font-weight: 700; }
+      .b { font-size: 15.5px; fill: #3E4C59; }
+      .s { font-size: 14.5px; fill: #3E4C59; }
+      .go { font-size: 15.5px; font-weight: 700; fill: #2E7D4F; }
+      .step { font-size: 19px; font-weight: 700; fill: #1F4FA8; }
+      .loop { font-size: 15px; font-weight: 700; fill: #2F6FDE; }
+    </style>
+  </defs>
+
+  <rect x="1" y="1" width="958" height="988" rx="18" fill="#FFFFFF" stroke="#D9DEE5" stroke-width="2"/>
+  <text class="title" x="40" y="58">AI Review Loop 怎樣幫你</text>
+
+  <!-- 1 -->
+  <circle cx="54" cy="104" r="15" fill="#2F6FDE"/>
+  <text class="n" x="54" y="110" text-anchor="middle">1</text>
+  <text class="h" x="80" y="111">先判斷：值不值得用它</text>
+
+  <rect x="330" y="126" width="300" height="42" rx="21" fill="#EEF4FF" stroke="#2F6FDE" stroke-width="1.5"/>
+  <text class="b" x="480" y="152" text-anchor="middle">你交來要審的內容</text>
+  <path d="M480,168 V184 M142.5,184 H817.5 M142.5,184 V198 M367.5,184 V198 M592.5,184 V198 M817.5,184 V198" stroke="#7B8794" stroke-width="1.6" fill="none"/>
+  <path d="M142.5,194 V202" stroke="#7B8794" stroke-width="1.6" marker-end="url(#a)"/>
+  <path d="M367.5,194 V202" stroke="#7B8794" stroke-width="1.6" marker-end="url(#a)"/>
+  <path d="M592.5,194 V202" stroke="#7B8794" stroke-width="1.6" marker-end="url(#a)"/>
+  <path d="M817.5,194 V202" stroke="#7B8794" stroke-width="1.6" marker-end="url(#a)"/>
+
+  <rect x="40" y="206" width="205" height="82" rx="12" fill="#EAF6EF" stroke="#2E7D4F" stroke-width="1.8"/>
+  <use href="#i-check" x="56" y="219" width="24" height="24" stroke="#2E7D4F"/>
+  <text class="bt" x="88" y="238">對外文件、決策</text>
+  <text class="go" x="56" y="270">→ 繼續下面三步</text>
+
+  <rect x="265" y="206" width="205" height="82" rx="12" fill="#F4F5F7" stroke="#B8C2CC" stroke-width="1.2"/>
+  <use href="#i-code" x="281" y="219" width="24" height="24" stroke="#616E7C"/>
+  <text class="bt" x="313" y="238">審程式碼、除錯</text>
+  <text class="b" x="281" y="270">叫你改用程式碼審查工具</text>
+
+  <rect x="490" y="206" width="205" height="82" rx="12" fill="#F4F5F7" stroke="#B8C2CC" stroke-width="1.2"/>
+  <use href="#i-scale" x="506" y="219" width="24" height="24" stroke="#616E7C"/>
+  <text class="bt" x="538" y="238">法律、醫療、稅務</text>
+  <text class="b" x="506" y="270">只列出要問專家的問題</text>
+
+  <rect x="715" y="206" width="205" height="82" rx="12" fill="#F4F5F7" stroke="#B8C2CC" stroke-width="1.2"/>
+  <use href="#i-pencil" x="731" y="219" width="24" height="24" stroke="#616E7C"/>
+  <text class="bt" x="763" y="238">純創作、小修改</text>
+  <text class="b" x="731" y="270">不必用，AI 直接做</text>
+
+  <!-- 2 -->
+  <circle cx="54" cy="338" r="15" fill="#2F6FDE"/>
+  <text class="n" x="54" y="344" text-anchor="middle">2</text>
+  <text class="h" x="80" y="345">開始前先問清楚</text>
+  <text class="note" x="236" y="345">（最多問三條，其餘 AI 自己推斷，你可以改）</text>
+
+  <rect x="40" y="362" width="280" height="82" rx="12" fill="#F7F9FC" stroke="#C5CFDB" stroke-width="1.2"/>
+  <use href="#i-target" x="56" y="375" width="24" height="24" stroke="#2F6FDE"/>
+  <text class="bt" x="88" y="394">目的</text>
+  <text class="b" x="56" y="426">給誰看、看完要他做甚麼</text>
+
+  <rect x="340" y="362" width="280" height="82" rx="12" fill="#F7F9FC" stroke="#C5CFDB" stroke-width="1.2"/>
+  <use href="#i-gauge" x="356" y="375" width="24" height="24" stroke="#2F6FDE"/>
+  <text class="bt" x="388" y="394">力度</text>
+  <text class="b" x="356" y="426">出錯代價越高，查得越仔細</text>
+
+  <rect x="640" y="362" width="280" height="82" rx="12" fill="#F7F9FC" stroke="#C5CFDB" stroke-width="1.2"/>
+  <use href="#i-eye" x="656" y="375" width="24" height="24" stroke="#2F6FDE"/>
+  <text class="bt" x="688" y="394">檢查角度</text>
+  <text class="b" x="656" y="426">找反證、扮讀者試讀、實際跑一次</text>
+
+  <!-- 3 -->
+  <circle cx="54" cy="494" r="15" fill="#2F6FDE"/>
+  <text class="n" x="54" y="500" text-anchor="middle">3</text>
+  <text class="h" x="80" y="501">四步循環</text>
+
+  <rect x="40" y="518" width="190" height="82" rx="12" fill="#EEF4FF" stroke="#2F6FDE" stroke-width="1.8"/>
+  <use href="#i-clip" x="56" y="532" width="24" height="24" stroke="#1F4FA8"/>
+  <text class="step" x="88" y="551">① 定基準</text>
+  <text class="b" x="56" y="583">先定合格線，不能偷改</text>
+
+  <rect x="270" y="518" width="190" height="82" rx="12" fill="#EEF4FF" stroke="#2F6FDE" stroke-width="1.8"/>
+  <use href="#i-search" x="286" y="532" width="24" height="24" stroke="#1F4FA8"/>
+  <text class="step" x="318" y="551">② 找盲點</text>
+  <text class="b" x="286" y="583">找出你看不到的漏洞</text>
+
+  <rect x="500" y="518" width="190" height="82" rx="12" fill="#EEF4FF" stroke="#2F6FDE" stroke-width="1.8"/>
+  <use href="#i-wrench" x="516" y="532" width="24" height="24" stroke="#1F4FA8"/>
+  <text class="step" x="548" y="551">③ 修根因</text>
+  <text class="b" x="516" y="583">給你修改前 → 後</text>
+
+  <rect x="730" y="518" width="190" height="82" rx="12" fill="#EEF4FF" stroke="#2F6FDE" stroke-width="1.8"/>
+  <use href="#i-repeat" x="746" y="532" width="24" height="24" stroke="#1F4FA8"/>
+  <text class="step" x="778" y="551">④ 同案重跑</text>
+  <text class="b" x="746" y="583">同一把尺再量一次</text>
+
+  <path d="M232,559 H266" stroke="#2F6FDE" stroke-width="2" fill="none" marker-end="url(#ab)"/>
+  <path d="M462,559 H496" stroke="#2F6FDE" stroke-width="2" fill="none" marker-end="url(#ab)"/>
+  <path d="M692,559 H726" stroke="#2F6FDE" stroke-width="2" fill="none" marker-end="url(#ab)"/>
+
+  <path d="M825,602 V626 H365 V606" stroke="#2F6FDE" stroke-width="2" stroke-dasharray="6 5" fill="none" marker-end="url(#ab)"/>
+  <rect x="465" y="613" width="260" height="26" rx="13" fill="#FFFFFF"/>
+  <text class="loop" x="595" y="631" text-anchor="middle">問題只是換了樣子？再找、再修</text>
+
+  <!-- modules -->
+  <rect x="40" y="656" width="880" height="216" rx="14" fill="#F7F9FC" stroke="#C5CFDB" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <use href="#i-search" x="58" y="670" width="22" height="22" stroke="#2F6FDE"/>
+  <text class="mt" x="88" y="687">按你的材料，自動加做這些檢查</text>
+  <text class="note" x="334" y="687">（用到才做）</text>
+
+  <rect x="56" y="704" width="276" height="74" rx="10" fill="#FFFFFF" stroke="#D9DEE5" stroke-width="1.2"/>
+  <use href="#i-building" x="72" y="729" width="26" height="26" stroke="#2F6FDE"/>
+  <text class="mt" x="112" y="732">對照你的部門</text>
+  <text class="s" x="112" y="758">先看同類工作常犯甚麼錯</text>
+
+  <rect x="342" y="704" width="276" height="74" rx="10" fill="#FFFFFF" stroke="#D9DEE5" stroke-width="1.2"/>
+  <use href="#i-user" x="358" y="729" width="26" height="26" stroke="#2F6FDE"/>
+  <text class="mt" x="398" y="732">扮讀者試讀</text>
+  <text class="s" x="398" y="758">看不同讀者在哪裏卡住</text>
+
+  <rect x="628" y="704" width="276" height="74" rx="10" fill="#FFFFFF" stroke="#D9DEE5" stroke-width="1.2"/>
+  <use href="#i-calc" x="644" y="729" width="26" height="26" stroke="#2F6FDE"/>
+  <text class="mt" x="684" y="732">重算數字</text>
+  <text class="s" x="684" y="758">加價 15% ≠ 營業額升 15%</text>
+
+  <rect x="56" y="786" width="276" height="74" rx="10" fill="#FFFFFF" stroke="#D9DEE5" stroke-width="1.2"/>
+  <use href="#i-chart" x="72" y="811" width="26" height="26" stroke="#2F6FDE"/>
+  <text class="mt" x="112" y="814">查估值</text>
+  <text class="s" x="112" y="840">方法、匯率、股數有否用錯</text>
+
+  <rect x="342" y="786" width="276" height="74" rx="10" fill="#FFFFFF" stroke="#D9DEE5" stroke-width="1.2"/>
+  <use href="#i-chat" x="358" y="811" width="26" height="26" stroke="#2F6FDE"/>
+  <text class="mt" x="398" y="814">去 AI 腔</text>
+  <text class="s" x="398" y="840">刪套話，用真實細節，不虛構</text>
+
+  <rect x="628" y="786" width="276" height="74" rx="10" fill="#FFFFFF" stroke="#D9DEE5" stroke-width="1.2"/>
+  <use href="#i-chain" x="644" y="811" width="26" height="26" stroke="#2F6FDE"/>
+  <text class="mt" x="684" y="814">查因果</text>
+  <text class="s" x="684" y="840">「因為…所以…」是否另有原因</text>
+
+  <!-- 4 -->
+  <circle cx="54" cy="910" r="15" fill="#2F6FDE"/>
+  <text class="n" x="54" y="916" text-anchor="middle">4</text>
+  <text class="h" x="80" y="917">最後你會收到</text>
+
+  <rect x="40" y="932" width="430" height="44" rx="12" fill="#EAF6EF" stroke="#2E7D4F" stroke-width="1.8"/>
+  <use href="#i-check" x="56" y="942" width="24" height="24" stroke="#2E7D4F"/>
+  <text class="b" x="90" y="960"><tspan font-weight="700" fill="#2E7D4F">對照表</tspan>　哪些改好、哪些未改好、有沒有新問題</text>
+
+  <rect x="490" y="932" width="430" height="44" rx="12" fill="#FFF6E5" stroke="#B7791F" stroke-width="1.8"/>
+  <use href="#i-stop" x="506" y="942" width="24" height="24" stroke="#975A16"/>
+  <text class="b" x="540" y="960"><tspan font-weight="700" fill="#975A16">坦白</tspan>　修不好就直說卡在哪裏、要誰決定</text>
+</svg>
