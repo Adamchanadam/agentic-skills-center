@@ -114,7 +114,7 @@ Agent Execution Retrospective
 - 能做甚麼。
 - 怎樣安裝或驗收。
 
-Skill 清單中的每個 skill 介紹以 2 至 3 句為準。若三句仍說不清，先修 skill 的定位，不用長文補救。
+README 每個 skill 用同一結構介紹：小標題附一句價值；「適合這種情況」一句；「和直接叫 AI 做有甚麼不同」不多於 4 點，每點都要對回該 skill 的 `SKILL.md`；「不適合」一句。若 4 點仍說不清，先修 skill 的定位，不用長文補救。
 
 README 的 skill 標題可用一個穩定 emoji 協助辨識。emoji 只作標記，不可代替 skill 名稱、用途或邊界。
 
@@ -222,4 +222,4 @@ repo 層的 `CHANGELOG.md` 記錄所有 skill 的公開變更。每個 skill 若
 skills/agent-execution-retrospective/
 ```
 
-日後新增 skill 時，放在 `skills/<skill-id>/`，並在 README 的 Skill 清單補上 2 至 3 句介紹。
+日後新增 skill 時，放在 `skills/<skill-id>/`，並按上述結構在 README 補上介紹。
