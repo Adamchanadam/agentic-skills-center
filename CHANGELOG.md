@@ -1,5 +1,16 @@
 # Changelog
 
+## AI Review Loop v1.4 - 2026-11-07
+
+- 首次收錄 `skills/ai-review-loop/`，並附同內容的 `skills/ai-review-loop.zip`。
+- 四步審查：定基準、找盲點、修根因、同案重跑；三種模式：D（專業反審）、U（用戶模擬）、P（產物驗收）；每輪可輸出能重跑的 REPLAY_PACKET。
+- 模組按需要才讀：`scenarios.md`、`persona.md`、`numbers.md`、`finance.md`、`de-ai-tone.md`、`causality.md`。
+- 包含全局「時效資料」規則：政策、價格、利率、市場數據等一律查證並附日期，查不到標 UNVERIFIED。
+- 版本號寫在 `SKILL.md` frontmatter 的 `metadata.version`。
+- 已驗收：skill validator（`quick_validate.py`）通過；Claude Code on Windows 安裝後逐檔 hash 一致，`/ai-review-loop` 可載入。
+
+限制：未做觸發／不觸發的 routing 測試或 dry-run；未附 `tests/routing-cases.md` 及 `agents/openai.yaml`；Codex 安裝未驗證。
+
 ## Agent Execution Retrospective v0.3.0 - 2026-09-01
 
 - 收窄 discovery description 和 activation：普通進度回顧、方案比較、重做或續行判斷、工具行為診斷、跨任務紀錄檢查，不應啟動此 skill。
