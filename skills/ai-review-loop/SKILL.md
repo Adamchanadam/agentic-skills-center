@@ -2,7 +2,7 @@
 name: ai-review-loop
 description: AI 閉環反審法（ARL, AI Review Loop）：用「定基準→找盲點→修根因→同案重跑」審查重要工作成果，並用同一批案例重跑，證明修改真的有改善。Use when the user asks to 反審、審查、驗收、找盲點、模擬用戶／persona、核對數字或估值、核對因果或歸因是否成立、查證時效資料（政策、價格、市場數據是否過時）、去 AI 腔、重跑上一輪審查 (review loop, red-team a document, check causal claims), for deliverables in marketing & PR, product & customer service, management & business development, finance & investment research, consulting & research, or AI & ops automation (prompt/pipeline revisions, AI-generated content). Not for code review, software testing or debugging (use Claude Code's own review/test tools), not for testing a skill (use skill-creator), not for final legal, medical or tax judgments, and not needed for pure creative writing or low-risk one-off tasks.
 metadata:
-  version: "1.7"
+  version: "1.7.1"
 ---
 
 # ARL 閉環反審
@@ -40,7 +40,7 @@ metadata:
 ## 引導及接手（開始前）
 
 1. **先從任務目標、材料及用戶自己的來源文件（方法、規格、舊版、範例）推斷目的卡**（見定基準①）。只有目的卡某欄填不出，或有會改變案例的取捨（讀者是誰、成功標準、有沒有基準）時才問，每輪最多三條，每題附建議預設答案；用戶答「照預設」即沿用，不問的就寫明「假設」並開始。用戶已提供的資料不再問。用戶只輸入 `/ai-review-loop` 而沒有附材料時，先問要審甚麼、給誰用、用完後要做或決定甚麼。
-2. 開始審查前，用幾行列出已定的**目標、模式、力度、授權、角色**，請用戶確認或修改。用戶已明確給定的項目直接列出，不重問；用戶已給齊目標、力度及授權，或要求一次過完成時，列出設定並註明可改，然後直接開始，不等確認。
+2. 開始審查前，用幾行列出已定的**目的卡、模式、力度、授權、角色及測試案例**，請用戶確認或修改。用戶已明確給定的項目直接列出，不重問；用戶已給齊目標、力度及授權，或要求一次過完成時，列出設定並註明可改，然後直接開始，不等確認。
 3. 如附有上輪報告，沿用其比較紀錄內的案例及準則，只替換本輪變更；上輪缺案例或原始結果的部分，列出缺口，只就齊全的部分作比較。
 
 ## 力度
@@ -87,7 +87,7 @@ metadata:
 
 每項重要發現寫明位置、影響、證據及根因，並標可信程度標籤；因果鏈的發現要寫出整條鏈及每節標籤，根因指向最弱一節。優先提供最小的「修改前 → 修改後」，不因局部問題擴張整個方案。
 
-修改原始檔案、系統或外部資料前須有授權；未獲授權只交建議稿，不套用。重大爭議或疑似共同偏誤才追加獨立審核：審核者先只看原材料與準則形成初判，之後才看其他人的結果。
+修改原始檔案、系統或外部資料前須有授權；未獲授權只交建議稿，不套用。除完整力度及主觀成效案例外，重大爭議或疑似共同偏誤才追加獨立審核：審核者先只看原材料與準則形成初判，之後才看其他人的結果。
 
 ### 4. 同案重跑
 
