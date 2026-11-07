@@ -1,19 +1,9 @@
 from __future__ import annotations
 
-import hashlib
-import json
 from pathlib import Path
 
 
 SKILL_DIR = Path(__file__).resolve().parents[1]
-
-
-def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for block in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest().upper()
 
 
 def main() -> int:
@@ -26,7 +16,9 @@ def main() -> int:
     assert "Universal Direction, Not A House Style" in skill
     assert "not a preset aesthetic" in skill
     assert "cannot establish the next task's style" in skill
-    assert "examples/slow-reading-lab/design-dossier.md" not in skill
+    # Internal test prototypes are not part of the public skill.
+    assert "examples/" not in skill
+    assert not (SKILL_DIR / "examples").exists()
 
     for reference in (
         "decision-frontier.md",
@@ -78,16 +70,6 @@ def main() -> int:
     assert "Asset coverage map" in design_dossier
     assert "Hero-Only Raster Is Not A Default" in visual_assets
     assert "Hero-Only Raster Assumption" in evaluation_cases
-
-    example_root = SKILL_DIR / "examples" / "slow-reading-lab"
-    assert (example_root / "index.html").is_file()
-    assert (example_root / "design-dossier.md").is_file()
-    manifest = json.loads((example_root / "assets" / "asset-manifest.json").read_text(encoding="utf-8"))
-    assert len(manifest["assets"]) == 3
-    for asset in manifest["assets"]:
-        path = example_root / asset["file"]
-        assert path.is_file(), asset["file"]
-        assert sha256(path) == asset["sha256"], asset["file"]
 
     print("content-led-interactive-web package: passed")
     return 0
