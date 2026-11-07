@@ -49,7 +49,7 @@
 
 把 `ai-review-loop` 換成你要的 skill：`agent-execution-retrospective` 或 `content-led-interactive-web`。
 
-安裝位置：Codex 是 `~/.agents/skills/`，Claude Code 是 `~/.claude/skills/`。已驗證的組合：AI Review Loop 用 Claude Code；另外兩個用 Codex。其他組合未測試。
+安裝位置：Codex 是 `~/.agents/skills/`，Claude Code 是 `~/.claude/skills/`。
 
 ## 回報問題
 
