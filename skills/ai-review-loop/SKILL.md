@@ -2,7 +2,7 @@
 name: ai-review-loop
 description: AI 閉環反審法（ARL, AI Review Loop）：用「定基準→找盲點→修根因→同案重跑」審查重要工作成果，並留下可交接、可重跑的 REPLAY_PACKET。Use when the user asks to 反審、審查、驗收、找盲點、模擬用戶／persona、核對數字或估值、核對因果或歸因是否成立、查證時效資料（政策、價格、市場數據是否過時）、去 AI 腔、重跑或接手交接包 (review loop, red-team a document, check causal claims), for deliverables in marketing & PR, product & customer service, management & business development, finance & investment research, consulting & research, or AI & ops automation (prompt/pipeline revisions, AI-generated content). Not for code review, software testing or debugging (use Claude Code's own review/test tools), not for testing a skill (use skill-creator), not for final legal, medical or tax judgments, and not needed for pure creative writing or low-risk one-off tasks.
 metadata:
-  version: "1.4"
+  version: "1.5"
 ---
 
 # ARL 閉環反審
@@ -50,8 +50,8 @@ metadata:
 | 力度 | 適用 | 交付 |
 |---|---|---|
 | 輕 | 日常文案、低風險想法、一次性工作 | 問題清單及最小修改；毋須交接包 |
-| 標準 | 重要策略、產品改版、研究、對外內容 | 完整四步及交接包 |
-| 完整 | 持續改版、多人或跨 AI 交接，或涉及金錢、法律、對外承諾（價格、時間表、保證、成效數據） | 完整四步、交接包，另建議獨立審核 |
+| 標準 | 重要策略、產品改版、研究、對外內容 | 完整四步及交接包（精簡版：原始材料可用穩定位置＋版本或附件代替全文） |
+| 完整 | 持續改版、多人或跨 AI 交接，或涉及金錢、法律、對外承諾（價格、時間表、保證、成效數據） | 完整四步、完整交接包（原始材料全文），另建議獨立審核 |
 
 ## 模式
 
@@ -138,14 +138,14 @@ AI 通常不知道自己哪些知識已經過時，所以不靠自覺判斷，�
 
 ## 輸出
 
-正文只寫結論、主要問題及未完成事項。力度為標準或完整時，細節只在交接包寫一次，按範本逐欄填寫，不增減欄位。
+正文寫結論、主要問題（每項一句，附標籤）及未完成事項，令用戶不讀交接包也知道改了甚麼、為何改。力度為標準或完整時，細節只在交接包寫一次，按範本逐欄填寫，不增減欄位。交接包是給下一個 AI 讀的：能寫檔案時寫成獨立檔案，正文只給路徑及 REPLAY_READY 狀態。同一對話連續多輪時，中間輪只重寫有變更的欄，並刪去已註明不再適用的事實；最後一輪或用戶要求轉交時才輸出完整一份。
 
 交接包必須自足：讓沒有對話記憶的 AI 只憑它和附件就能用同一套案例和準則重跑。
 - 不可引用包外內容（例如「見第 X 節」）；包內欄位之間可以互相引用。
 - 案例、測試資料、準則及原始結果全文列出。
 - 轉交前刪去不必要的個人資料。
 - 不知道的資料（例如模型名稱、日期）寫「不詳」，不要猜。
-- **REPLAY_READY 寫 YES 或 NO：** 凡引用包外內容、引用的測試資料未列出、只有摘要／檔名／讀不到的連結、或缺原始結果，即為 NO，並列出缺口及仍可重跑的案例編號。要接入真實系統或外部環境才能跑的案例，註明「需外部環境」；未執行的案例原始結果填 NOT_RUN；兩者都不算材料缺口。**YES 只表示重跑材料齊全，不表示通過。**
+- **REPLAY_READY 寫 YES 或 NO：** 凡引用包外內容、引用的測試資料未列出、只有摘要、無版本的檔名或讀不到的連結（附版本或 hash 的公開位置、已附上的檔案算已列出）、或缺原始結果，即為 NO，並列出缺口及仍可重跑的案例編號。要接入真實系統或外部環境才能跑的案例，註明「需外部環境」；未執行的案例原始結果填 NOT_RUN；兩者都不算材料缺口。**YES 只表示重跑材料齊全，不表示通過。**
 
 ### 交接包範本
 

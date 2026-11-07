@@ -1,5 +1,15 @@
 # Changelog
 
+## AI Review Loop v1.5 - 2026-11-07
+
+- 力度「標準」改交精簡交接包：原始材料可用穩定位置加版本或 hash，或已附上的檔案，代替全文；「完整」仍交完整交接包。
+- 正文必須列出主要問題（每項一句，附標籤），用戶不讀交接包也知道改了甚麼、為何改；交接包能寫檔時寫成獨立檔案，正文只給路徑及 REPLAY_READY 狀態。
+- 同一對話連續多輪時，中間輪只重寫有變更的欄，最後一輪或用戶要求轉交時才輸出完整一份。
+- 修正規則矛盾：附版本或 hash 的公開位置、已附上的檔案，算已列出材料，不再令 REPLAY_READY 變 NO。
+- 已驗收：skill validator（`quick_validate.py`）通過；Claude Code on Windows 安裝後逐檔 hash 一致。
+
+限制：精簡交接包未經真實重跑驗證；若日後重跑因讀不到材料而失敗，「標準」力度應回復全文。
+
 ## AI Review Loop v1.4 - 2026-11-07
 
 - 首次收錄 `skills/ai-review-loop/`，並附同內容的 `skills/ai-review-loop.zip`。
