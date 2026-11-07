@@ -14,7 +14,6 @@ agentic-skills-center/
   LICENSE
   CONTRIBUTING.md
   SECURITY.md
-  CHANGELOG.md
   skills/
     agent-execution-retrospective/
       SKILL.md
@@ -162,7 +161,7 @@ README 的 skill 標題可用一個穩定 emoji 協助辨識。emoji 只作標�
 
 如果某次本機失敗值得保留，應改寫成 meta 層規則。
 
-README 不寫內部測試或驗證狀態，例如「已驗證」「未測試」「待確認」。這些狀態只用來決定 README 寫甚麼、不寫甚麼，不寫給讀者看；驗證紀錄只記在 `CHANGELOG.md`。
+README 不寫內部測試或驗證狀態，例如「已驗證」「未測試」「待確認」。這些狀態只用來決定 README 寫甚麼、不寫甚麼，不寫給讀者看。
 
 例子：
 
@@ -200,8 +199,6 @@ Git tag 可用：
 ```text
 agent-execution-retrospective-v0.2.1
 ```
-
-repo 層的 `CHANGELOG.md` 記錄所有 skill 的公開變更。每個 skill 若變更頻繁，可另有自己的 `CHANGELOG.md`。
 
 發布包應只包含該 skill 需要的檔案，不包含本機測試暫存、私人 notes 或未完成草稿。
 
