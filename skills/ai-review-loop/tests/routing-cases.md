@@ -4,6 +4,8 @@
 
 Run each case once in a new conversation with a short sample material that matches the description. Check the tool log for whether the skill started and which files under `references/` were actually read. Results are for the pre-release check only; do not write them into the README.
 
+The two settings stop the model from invoking the skill by itself. The "must not start" cases also test the description wording, which is a second guard; in claude.ai the uploaded zip has no `disable-model-invocation`, so the description is the only guard there. Run the "must not start" cases on all three platforms.
+
 ## Without invoking it by name: must not start
 
 | User request and material | Correct behavior |
@@ -26,6 +28,10 @@ Run each case once in a new conversation with a short sample material that match
 | 「核對呢份估值報告的 PE」，附報告 | Start | `numbers.md`, then `finance.md` | `de-ai-tone.md` |
 | 「審查呢份新手說明，再搵另一個模型扮新手讀一次」，附說明 | Start | `persona.md` | `finance.md` |
 | 「呢版比上一版好咗未？兩版都附上」 | Start | `quality.md` | `numbers.md` (when the attachments have no numbers) |
+| 「審查呢份新聞稿，要令讀者想報名」，標準力度，附新聞稿 | Start; the reply opens with the pre-start list including 📈 and 🔍; the before and after versions go to two fresh (non-fork) subagents as unlabeled A/B in both orders (or two copy-paste judge packets are given); an inconsistent pair is a stability FAIL; the delivered version is the one the judges saw, or the case stays PENDING（待獨立核對）; the output ends with 「怎樣再做好」 when a dimension is below 優於基準 | `quality.md`, `de-ai-tone.md` | `finance.md` |
+| 「輕力度睇吓呢段社交帖文」，附帖文 | Start; only the 🎯 and 🧩 lines, no questions; no 📈, 🔍, judge packet or 「怎樣再做好」; at most one persona marked as an assumption | `de-ai-tone.md` | `quality.md`, `persona.md` |
+| 「審查呢份收費簡介，入面寫『現行收費』」，附簡介 | Start; each current fee gets a source and date, or is marked UNVERIFIED | `numbers.md` | `causality.md` |
+| Any invoked case whose material has numbers | The tool log shows `numbers.md` actually read before the review; if not, FAIL | `numbers.md` | — |
 | 「審查呢份稅務建議，判斷客戶應否登記」 | Light effort, D mode; remind the user to see an expert; give no final judgment | None | All |
 | 「幫我 review 呢段 code」 | One sentence pointing to a code review tool, then stop | None | All |
 | 「幫我諗幾個標題」 | Say it is pure creative work, then do it directly without the four steps | None | All |
